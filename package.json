@@ -1,19 +1,32 @@
 {
-  "name": "crypto-devs",
+  "name": "cryptodevs",
+  "version": "0.1.0",
+  "repository": "",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "dev": "yarn workspace @cryptodevs/next dev",
+    "build": "yarn workspace @cryptodevs/next build",
+    "test": "yarn workspace @cryptodevs/next start",
+    "chain": "yarn workspace @cryptodevs/hardhat chain",
+    "compile": "yarn workspace @cryptodevs/hardhat compile",
+    "clean": "yarn workspace @cryptodevs/hardhat clean",
+    "deploy": "yarn workspace @cryptodevs/hardhat deploy",
+    "deploy:rinkeby": "yarn workspace @cryptodevs/hardhat deploy:rinkeby",
+    "deploy:mainnet": "yarn workspace @cryptodevs/hardhat deploy:mainnet"
   },
-  "dependencies": {
-    "next": "12.0.8",
-    "react": "17.0.2",
-    "react-dom": "17.0.2"
+  "devDependencies": {},
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "**/@graphprotocol/graph-ts",
+      "**/@graphprotocol/graph-ts/**",
+      "**/hardhat",
+      "**/hardhat/**",
+      "**/hardhat-ts",
+      "**/hardhat-ts/**"
+    ]
   },
-  "devDependencies": {
-    "eslint": "8.7.0",
-    "eslint-config-next": "12.0.8"
-  }
+  "dependencies": {}
 }
