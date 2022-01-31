@@ -1,12 +1,12 @@
 import Head from "next/head";
 import Image from "next/image";
 import { useEffect } from "react";
-import contracts from "../../contracts/hardhat_contracts.json";
+import contracts from "@/contracts/hardhat_contracts.json";
 import { useAccount, useContract, useProvider, useSigner } from "wagmi";
-import image from "../../images/crypto-devs.svg";
+import image from "@/images/crypto-devs.svg";
 
-import { Button } from "../../components/elements";
-import { Hero } from "../../components/sections";
+import { Button } from "@/components/elements";
+import { Hero } from "@/components/sections";
 
 const WHITELIST_CONTRACT_ADDRESS = "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9";
 
@@ -91,7 +91,7 @@ const LeftSection = () => {
     addAddressToWhitelist();
   };
   return (
-    <div>
+    <div className="w-full">
       <h1 className="text-3xl md:text-5xl p-2 text-yellow-300 tracking-loose">
         Crypto Devs
       </h1>
