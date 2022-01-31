@@ -10,6 +10,7 @@
     "chain": "yarn workspace @cryptodevs/hardhat chain",
     "compile": "yarn workspace @cryptodevs/hardhat compile",
     "clean": "yarn workspace @cryptodevs/hardhat clean",
+    "deploy:new": "yarn workspace @cryptodevs/hardhat deploy:new",
     "deploy": "yarn workspace @cryptodevs/hardhat deploy",
     "deploy:rinkeby": "yarn workspace @cryptodevs/hardhat deploy:rinkeby",
     "deploy:mainnet": "yarn workspace @cryptodevs/hardhat deploy:mainnet"

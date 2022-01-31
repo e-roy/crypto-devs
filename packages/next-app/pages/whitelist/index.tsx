@@ -1,14 +1,14 @@
 import Head from "next/head";
 import Image from "next/image";
 import { useEffect } from "react";
-import WhiteList from "../../../hardhat/artifacts/contracts/Whitelist.sol/Whitelist.json";
+import contracts from "../../contracts/hardhat_contracts.json";
 import { useAccount, useContract, useProvider, useSigner } from "wagmi";
 import image from "../../images/crypto-devs.svg";
 
 import { Button } from "../../components/elements";
 import { Hero } from "../../components/sections";
 
-const WHITELIST_CONTRACT_ADDRESS = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512";
+const WHITELIST_CONTRACT_ADDRESS = "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9";
 
 export default function WhitelistPage() {
   return <Hero child1={<LeftSection />} child2={<RightSection />} />;
@@ -22,9 +22,11 @@ const LeftSection = () => {
 
   const [{ data, error, loading }, getSigner] = useSigner();
 
+  const Whitelist = contracts[31337].hardhat.contracts.Whitelist;
+
   const whitelistContract = useContract({
     addressOrName: WHITELIST_CONTRACT_ADDRESS,
-    contractInterface: WhiteList.abi,
+    contractInterface: Whitelist.abi,
     signerOrProvider: data,
   });
 
