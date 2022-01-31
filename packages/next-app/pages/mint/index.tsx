@@ -4,12 +4,12 @@ import Image from "next/image";
 import { useEffect } from "react";
 // import Mint from "../../../hardhat/artifacts/contracts/Whitelist.sol/Whitelist.json";
 import { useAccount, useContract, useProvider, useSigner } from "wagmi";
-import { Hero } from "../../components/sections";
-import image from "../../images/eth-devs-2.svg";
+import { Hero } from "@/components/sections";
+import image from "@/images/eth-devs-2.svg";
 
 // import { Account, Connect, NetworkSwitcher } from "../components/wallet";
 
-import { Button } from "../../components/elements";
+import { Button } from "@/components/elements";
 
 const MINT_CONTRACT_ADDRESS = "";
 
@@ -41,7 +41,7 @@ const LeftSection = () => {
     console.log("handleJoin");
   };
   return (
-    <div>
+    <div className="w-full">
       <h1 className="text-3xl md:text-5xl p-2 text-yellow-300 tracking-loose">
         Crypto Devs
       </h1>

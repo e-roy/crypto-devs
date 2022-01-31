@@ -1,10 +1,9 @@
 import Head from "next/head";
-import Image from "next/image";
+import { useRouter } from "next/router";
 import { useAccount } from "wagmi";
-import Link from "next/link";
-import { Button } from "../components/elements";
+import { Button } from "@/components/elements";
 
-import { Account, Connect, NetworkSwitcher } from "../components/wallet";
+import { Account, Connect, NetworkSwitcher } from "@/components/wallet";
 
 const navItems = [
   {
@@ -15,10 +14,23 @@ const navItems = [
     label: "Mint",
     href: "/mint",
   },
+  {
+    label: "ICO",
+    href: "/ico",
+  },
+  {
+    label: "DAO",
+    href: "/dao",
+  },
+  {
+    label: "Exchange",
+    href: "/exchange",
+  },
 ];
 
 export default function Home() {
   const [{ data: accountData }] = useAccount();
+  const router = useRouter();
   return (
     <div className={"bg-gray-900 text-white h-screen"}>
       {/* <Head>
@@ -31,9 +43,13 @@ export default function Home() {
         <h1 className="text-3xl font-bold text-center">Crypto Devs</h1>
         <div className={"border my-4 p-4"}>
           {navItems.map((nav, id) => (
-            <Link key={id} href={nav.href} passHref>
-              <Button>{nav.label}</Button>
-            </Link>
+            <Button
+              key={id}
+              className="my-2"
+              onClick={() => router.push(`${nav.href}`)}
+            >
+              {nav.label}
+            </Button>
           ))}
         </div>
         <div className={"border my-4 p-4"}>
