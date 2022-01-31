@@ -2,9 +2,9 @@ import { useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import { Hero } from "@/components/sections";
-import image from "@/images/eth-devs-2.svg";
-
 import { Button, TextField } from "@/components/elements";
+import { CheckConnection } from "@/components/wallet";
+import image from "@/images/eth-devs-2.svg";
 
 export default function WhitelistPage() {
   return <Hero child1={<LeftSection />} child2={<RightSection />} />;
@@ -24,37 +24,43 @@ const LeftSection = () => {
       <h2 className="text-xl md:text-3xl leading-relaxed md:leading-snug mb-2">
         Exchange Ethereum for Crypto Dev Tokens
       </h2>
-      <div className="flex">
-        <Button onClick={() => handleJoin()}>Liquidity</Button>
-        <Button className="ml-4" onClick={() => handleJoin()}>
-          Swap
-        </Button>
-      </div>
-      <p className="text-sm md:text-base text-gray-50">You have:</p>
-      <p className="text-sm md:text-base text-gray-50">0 Crypto Dev Tokens</p>
-      <p className="text-sm md:text-base text-gray-50">0 Ether</p>
-      <p className="text-sm md:text-base text-gray-50 mb-4">
-        0 Crypto Dev LP Tokens
-      </p>
-      <TextField
-        className="my-4"
-        placeholder="Amount of Ether"
-        onChange={(e) => setTokenAmount(e.target.value)}
-      />
-      <p className="text-sm md:text-base text-gray-50">You will need 0</p>
-      <p className="text-sm md:text-base text-gray-50">Crypto Dev Tokens</p>
-      <div className="flex">
-        <Button onClick={() => handleJoin()}>add</Button>
-      </div>
-      <TextField
-        className="my-4"
-        placeholder="Amount of LP Tokens"
-        onChange={(e) => setTokenAmount(e.target.value)}
-      />
-      <p className="text-sm md:text-base text-gray-50">You will get 0</p>
-      <p className="text-sm md:text-base text-gray-50">Crypto Dev Tokens</p>
-      <p className="text-sm md:text-base text-gray-50">and 0 ETH</p>
-      <Button onClick={() => handleJoin()}>remove</Button>
+      <CheckConnection>
+        <div>
+          <div className="flex">
+            <Button onClick={() => handleJoin()}>Liquidity</Button>
+            <Button className="ml-4" onClick={() => handleJoin()}>
+              Swap
+            </Button>
+          </div>
+          <p className="text-sm md:text-base text-gray-50">You have:</p>
+          <p className="text-sm md:text-base text-gray-50">
+            0 Crypto Dev Tokens
+          </p>
+          <p className="text-sm md:text-base text-gray-50">0 Ether</p>
+          <p className="text-sm md:text-base text-gray-50 mb-4">
+            0 Crypto Dev LP Tokens
+          </p>
+          <TextField
+            className="my-4"
+            placeholder="Amount of Ether"
+            onChange={(e) => setTokenAmount(e.target.value)}
+          />
+          <p className="text-sm md:text-base text-gray-50">You will need 0</p>
+          <p className="text-sm md:text-base text-gray-50">Crypto Dev Tokens</p>
+          <div className="flex">
+            <Button onClick={() => handleJoin()}>add</Button>
+          </div>
+          <TextField
+            className="my-4"
+            placeholder="Amount of LP Tokens"
+            onChange={(e) => setTokenAmount(e.target.value)}
+          />
+          <p className="text-sm md:text-base text-gray-50">You will get 0</p>
+          <p className="text-sm md:text-base text-gray-50">Crypto Dev Tokens</p>
+          <p className="text-sm md:text-base text-gray-50">and 0 ETH</p>
+          <Button onClick={() => handleJoin()}>remove</Button>
+        </div>
+      </CheckConnection>
     </div>
   );
 };

@@ -1,9 +1,9 @@
 import Head from "next/head";
 import Image from "next/image";
 import { Hero } from "@/components/sections";
-import image from "@/images/eth-devs-2.svg";
-
 import { Button } from "@/components/elements";
+import { CheckConnection } from "@/components/wallet";
+import image from "@/images/eth-devs-2.svg";
 
 export default function WhitelistPage() {
   return <Hero child1={<LeftSection />} child2={<RightSection />} />;
@@ -21,21 +21,25 @@ const LeftSection = () => {
       <h2 className="text-xl md:text-3xl leading-relaxed md:leading-snug mb-2">
         Welcome to the DAO!
       </h2>
-      <p className="text-sm md:text-base text-gray-50 mb-4">
-        Your CryptoDevs NFT Balance: 0
-      </p>
-      <p className="text-sm md:text-base text-gray-50 mb-4">
-        Treasury Balance: 0 ETH
-      </p>
-      <p className="text-sm md:text-base text-gray-50 mb-4">
-        Total Number of Proposals: 0
-      </p>
-      <div className="flex">
-        <Button onClick={() => handleJoin()}>create proposal</Button>
-        <Button className="ml-4" onClick={() => handleJoin()}>
-          view proposals
-        </Button>
-      </div>
+      <CheckConnection>
+        <div>
+          <p className="text-sm md:text-base text-gray-50 mb-4">
+            Your CryptoDevs NFT Balance: 0
+          </p>
+          <p className="text-sm md:text-base text-gray-50 mb-4">
+            Treasury Balance: 0 ETH
+          </p>
+          <p className="text-sm md:text-base text-gray-50 mb-4">
+            Total Number of Proposals: 0
+          </p>
+          <div className="flex">
+            <Button onClick={() => handleJoin()}>create proposal</Button>
+            <Button className="ml-4" onClick={() => handleJoin()}>
+              view proposals
+            </Button>
+          </div>
+        </div>
+      </CheckConnection>
     </div>
   );
 };

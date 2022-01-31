@@ -3,10 +3,10 @@ import Image from "next/image";
 import { useEffect } from "react";
 import contracts from "@/contracts/hardhat_contracts.json";
 import { useAccount, useContract, useProvider, useSigner } from "wagmi";
-import image from "@/images/crypto-devs.svg";
-
-import { Button } from "@/components/elements";
 import { Hero } from "@/components/sections";
+import { Button } from "@/components/elements";
+import { CheckConnection } from "@/components/wallet";
+import image from "@/images/crypto-devs.svg";
 
 const WHITELIST_CONTRACT_ADDRESS = "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9";
 
@@ -98,10 +98,14 @@ const LeftSection = () => {
       <h2 className="text-xl md:text-3xl leading-relaxed md:leading-snug mb-2">
         An NFT collection for developers in Crypto
       </h2>
-      <p className="text-sm md:text-base text-gray-50 mb-4">
-        1/10 have already joined the Whitelist
-      </p>
-      <Button onClick={() => handleJoin()}>join</Button>
+      <CheckConnection>
+        <div>
+          <p className="text-sm md:text-base text-gray-50 mb-4">
+            1/10 have already joined the Whitelist
+          </p>
+          <Button onClick={() => handleJoin()}>join</Button>
+        </div>
+      </CheckConnection>
     </div>
   );
 };

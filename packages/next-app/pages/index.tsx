@@ -3,8 +3,6 @@ import { useRouter } from "next/router";
 import { useAccount } from "wagmi";
 import { Button } from "@/components/elements";
 
-import { Account, Connect, NetworkSwitcher } from "@/components/wallet";
-
 const navItems = [
   {
     label: "WhiteList",
@@ -41,7 +39,7 @@ export default function Home() {
 
       <main className={""}>
         <h1 className="text-3xl font-bold text-center">Crypto Devs</h1>
-        <div className={"border my-4 p-4"}>
+        <div className={"my-4 p-4"}>
           {navItems.map((nav, id) => (
             <Button
               key={id}
@@ -51,18 +49,6 @@ export default function Home() {
               {nav.label}
             </Button>
           ))}
-        </div>
-        <div className={"border my-4 p-4"}>
-          <div>account</div>
-
-          <Account />
-          <div>switcher</div>
-
-          <NetworkSwitcher />
-        </div>
-        <div className={"border my-4 p-4"}>
-          <div>connect</div>
-          <Connect />
         </div>
       </main>
 

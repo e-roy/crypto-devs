@@ -8,7 +8,6 @@ import NextHead from "next/head";
 import { Connector, Provider, chain, defaultChains } from "wagmi";
 import { InjectedConnector } from "wagmi/connectors/injected";
 import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
-import { WalletLinkConnector } from "wagmi/connectors/walletLink";
 
 // Get environment variables
 // const alchemy = process.env.NEXT_PUBLIC_ALCHEMY_ID as string;
@@ -34,13 +33,6 @@ const connectors = ({ chainId }: ConnectorsConfig) => {
         qrcode: true,
       },
     }),
-    new WalletLinkConnector({
-      chains,
-      options: {
-        appName: "wagmi",
-        jsonRpcUrl: `${rpcUrl}/${infuraId}`,
-      },
-    }),
   ];
 };
 
@@ -64,6 +56,8 @@ const webSocketProvider = ({ chainId }: ProviderConfig) =>
     : undefined;
 
 const App = ({ Component, pageProps }: AppProps) => {
+  // console.log("chains", chains);
+  // console.log("chain", chain);
   return (
     <Provider
       autoConnect

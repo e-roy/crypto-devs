@@ -1,11 +1,13 @@
 import * as React from "react";
 import { useAccount } from "wagmi";
 import { Button } from "../elements";
+import Image from "next/image";
 
 export const Account = () => {
   const [{ data: accountData }, disconnect] = useAccount({
     fetchEns: true,
   });
+  console.log("accountData", accountData);
 
   if (!accountData) return <div>No account connected</div>;
 
@@ -23,7 +25,12 @@ export const Account = () => {
       </div>
 
       {accountData?.ens?.avatar && (
-        <img src={accountData.ens.avatar} style={{ height: 40, width: 40 }} />
+        <Image
+          width={40}
+          height={40}
+          src={accountData.ens.avatar}
+          alt="Crypto Devs"
+        />
       )}
     </div>
   );

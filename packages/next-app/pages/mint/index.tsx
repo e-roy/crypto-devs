@@ -1,15 +1,12 @@
 import Head from "next/head";
 import Image from "next/image";
-// import { providers, Contract } from "ethers";
 import { useEffect } from "react";
 // import Mint from "../../../hardhat/artifacts/contracts/Whitelist.sol/Whitelist.json";
 import { useAccount, useContract, useProvider, useSigner } from "wagmi";
 import { Hero } from "@/components/sections";
-import image from "@/images/eth-devs-2.svg";
-
-// import { Account, Connect, NetworkSwitcher } from "../components/wallet";
-
 import { Button } from "@/components/elements";
+import { CheckConnection } from "@/components/wallet";
+import image from "@/images/eth-devs-2.svg";
 
 const MINT_CONTRACT_ADDRESS = "";
 
@@ -48,10 +45,14 @@ const LeftSection = () => {
       <h2 className="text-xl md:text-3xl leading-relaxed md:leading-snug mb-2">
         An NFT collection for developers in Crypto
       </h2>
-      <p className="text-sm md:text-base text-gray-50 mb-4">
-        1/10 have already joined the Whitelist
-      </p>
-      <Button onClick={() => handleJoin()}>mint</Button>
+      <CheckConnection>
+        <div>
+          <p className="text-sm md:text-base text-gray-50 mb-4">
+            1/10 have already joined the Whitelist
+          </p>
+          <Button onClick={() => handleJoin()}>mint</Button>
+        </div>
+      </CheckConnection>
     </div>
   );
 };

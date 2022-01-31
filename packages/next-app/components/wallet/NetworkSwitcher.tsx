@@ -4,7 +4,7 @@ import { useNetwork } from "wagmi";
 export const NetworkSwitcher = () => {
   const [{ data: networkData, error: switchNetworkError }, switchNetwork] =
     useNetwork();
-
+  console.log("networkData", networkData);
   return (
     <div>
       <div>
