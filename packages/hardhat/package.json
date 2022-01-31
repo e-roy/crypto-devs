@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "chain": "npx hardhat node",
+    "chain:old": "npx hardhat node",
+    "chain": "hardhat node --network hardhat --no-deploy",
     "compile": "npx hardhat compile",
     "clean": "npx hardhat clean",
-    "deploy": "npm run compile && npx hardhat run scripts/deploy.js --network localhost",
+    "deploy:new": "hardhat deploy --export-all ../next-app/src/contracts/hardhat_contracts.json",
+    "deploy": "npm run compile && npx hardhat run scripts/deploy.js --network localhost && hardhat deploy --export-all ../next-app/contracts/hardhat_contracts.json",
     "deploy:rinkeby": "hardhat compile && npx hardhat run scripts/deploy.js --network rinkeby",
     "deploy:mainnet": "npm run compile && npx hardhat run scripts/deploy.js --network mainnet"
   },
