@@ -1,0 +1,14 @@
+[
+  {
+    "network": {
+      "name": "rinkeby",
+      "id": 4
+    }
+  },
+  {
+    "network": {
+      "name": "localhost",
+      "id": 31337
+    }
+  }
+]

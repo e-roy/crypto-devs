@@ -1,6 +1,6 @@
 {
   "network": {
-    "name": "hardhat",
+    "name": "localhost",
     "id": 31337
   }
 }

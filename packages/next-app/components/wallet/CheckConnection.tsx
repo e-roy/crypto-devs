@@ -11,7 +11,8 @@ export const CheckConnection = ({ children }) => {
   const [{ data: networkData, error: switchNetworkError }, switchNetwork] =
     useNetwork();
 
-  // console.log(config);
+  const chainId = Number(config.network.id);
+  const network = config.network.name;
 
   if (!accountData)
     return (
@@ -21,7 +22,7 @@ export const CheckConnection = ({ children }) => {
       </div>
     );
 
-  if (networkData.chain.id !== config.network.id)
+  if (networkData.chain.id !== chainId)
     return (
       <div>
         <div className="my-8">
@@ -31,14 +32,12 @@ export const CheckConnection = ({ children }) => {
           </div>
           <div>
             You will need to switch to the{" "}
-            <span className="font-semibold text-lg uppercase">
-              {config.network.name}
-            </span>{" "}
+            <span className="font-semibold text-lg uppercase">{network}</span>{" "}
             network to use
           </div>
         </div>
-        <Button onClick={() => switchNetwork(config.network.id)}>
-          switch to {config.network.name}
+        <Button onClick={() => switchNetwork(chainId)}>
+          switch to {network}
         </Button>
       </div>
     );

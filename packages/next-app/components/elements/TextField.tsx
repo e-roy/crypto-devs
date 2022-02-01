@@ -3,7 +3,7 @@
 export type TextFieldProps = {
   name?: string;
   label?: string;
-  value?: string;
+  value?: string | number;
   required?: boolean;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   className?: string;
