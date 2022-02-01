@@ -7,10 +7,11 @@
     "chain": "hardhat node --network hardhat --no-deploy",
     "compile": "npx hardhat compile",
     "clean": "npx hardhat clean",
-    "deploy:new": "hardhat deploy --export-all ../next-app/src/contracts/hardhat_contracts.json",
-    "deploy": "npm run compile && npx hardhat run scripts/deploy.js --network localhost && hardhat deploy --export-all ../next-app/contracts/hardhat_contracts.json",
-    "deploy:rinkeby": "hardhat compile && npx hardhat run scripts/deploy.js --network rinkeby",
-    "deploy:mainnet": "npm run compile && npx hardhat run scripts/deploy.js --network mainnet"
+    "deploy": "hardhat deploy --export-all ../next-app/contracts/hardhat_contracts.json",
+    "deploy:rinkeby": "hardhat deploy --export-all ../next-app/contracts/hardhat_contracts.json --network rinkeby",
+    "deploy:rinkeby:old": "hardhat compile && npx hardhat run scripts/deploy.js --network rinkeby",
+    "deploy:mainnet": "npm run compile && npx hardhat run scripts/deploy.js --network mainnet",
+    "postdeploy": "hardhat run scripts/publish.js"
   },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "2.0.3",
