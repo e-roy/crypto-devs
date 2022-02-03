@@ -154,9 +154,11 @@ const LeftSection = () => {
     // const claimed = await tokenContract.tokenIdsClaimed(tokenId);
     // console.log(claimed);
 
+    let available = maxTokensAvailable - tokensClaimed;
+
     if (tokenAmount === 0) setErrorMessage("Please enter a valid amount");
-    else if (tokenAmount > maxTokensAvailable - tokensClaimed)
-      setErrorMessage("You can only claim upto");
+    else if (tokenAmount > available)
+      setErrorMessage(`You can only claim upto ${available} tokens`);
     else {
       setErrorMessage("");
       mintCryptoDevToken(tokenAmount);
