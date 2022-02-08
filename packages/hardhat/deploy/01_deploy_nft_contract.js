@@ -3,7 +3,7 @@ const fs = require("fs");
 
 module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
   const { deploy } = deployments;
-  const { deployer, tokenOwner } = await getNamedAccounts();
+  const { deployer } = await getNamedAccounts();
 
   const chainId = await getChainId();
 
@@ -26,7 +26,6 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
   await deploy("CryptoDevs", {
     // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
     from: deployer,
-    // args: [tokenOwner],
     args: [METADATA_URL, WHITELIST_CONTRACT_ADDRESS],
     log: true,
   });

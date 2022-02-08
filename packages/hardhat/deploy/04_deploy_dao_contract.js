@@ -1,10 +1,9 @@
 // deploy/04_deploy_dao_contract.js
 const fs = require("fs");
-const { ethers } = require("hardhat");
 
 module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
   const { deploy } = deployments;
-  const { deployer, tokenOwner } = await getNamedAccounts();
+  const { deployer } = await getNamedAccounts();
 
   const chainId = await getChainId();
 
@@ -31,20 +30,10 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
 
   const fakeMarketplaceContract = contractMarketplace.address;
 
-  console.log(deployer);
-  console.log(cryptoDevsNFTContract);
-  console.log(fakeMarketplaceContract);
-
   await deploy("CryptoDevsDAO", {
     // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
     from: deployer,
-    args: [
-      fakeMarketplaceContract,
-      cryptoDevsNFTContract,
-      // {
-      //   value: ethers.utils.parseEther("0.1"),
-      // },
-    ],
+    args: [fakeMarketplaceContract, cryptoDevsNFTContract],
     log: true,
   });
 };

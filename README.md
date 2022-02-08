@@ -4,10 +4,22 @@ This project is from a [https://www.learnweb3.io tutorial](https://www.learnweb3
 
 ## Getting Started
 
-First, run the development server:
+First, install packages and start hardhat locally in one terminal
 
 ```bash
 yarn install
+yarn chain
+```
+
+In another termminal, deploy your contracts on hardhat locally with
+
+```bash
+yarn deploy
+```
+
+In a 3rd termminal, start your local next dev enviornment
+
+```bash
 yarn dev
 ```
 

@@ -1,4 +1,4 @@
-// deploy/02_deploy_ico_contract.js
+// deploy/05_deploy_exchange_contract
 const fs = require("fs");
 
 module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
@@ -16,18 +16,18 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
     networkName = "localhost";
   }
 
-  let contract = fs
-    .readFileSync(`./deployments/${networkName}/CryptoDevs.json`)
+  let contractToken = fs
+    .readFileSync(`./deployments/${networkName}/CryptoDevToken.json`)
     .toString();
-  contract = JSON.parse(contract);
+  contractToken = JSON.parse(contractToken);
 
-  const cryptoDevsNFTContract = contract.address;
+  const cryptoDevTokenAddress = contractToken.address;
 
-  await deploy("CryptoDevToken", {
+  await deploy("Exchange", {
     // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
     from: deployer,
-    args: [cryptoDevsNFTContract],
+    args: [cryptoDevTokenAddress],
     log: true,
   });
 };
-module.exports.tags = ["CryptoDevToken"];
+module.exports.tags = ["Exchange"];
