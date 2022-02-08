@@ -105,9 +105,6 @@ const LeftSection = () => {
   };
   return (
     <div className="w-full">
-      <h1 className="text-3xl md:text-5xl p-2 text-yellow-300 tracking-loose">
-        Crypto Devs
-      </h1>
       <h2 className="text-xl md:text-3xl leading-relaxed md:leading-snug mb-2">
         An NFT collection for developers in Crypto
       </h2>

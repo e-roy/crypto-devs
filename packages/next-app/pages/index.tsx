@@ -38,7 +38,9 @@ export default function Home() {
       </Head> */}
 
       <main className={""}>
-        <h1 className="text-3xl font-bold text-center">Crypto Devs</h1>
+        <h1 className="pl-4 text-2xl md:text-4xl p-2 font-medium text-yellow-300 tracking-loose">
+          Crypto Devs
+        </h1>
         <div className={"my-4 p-4"}>
           {navItems.map((nav, id) => (
             <Button

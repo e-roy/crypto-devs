@@ -177,9 +177,13 @@ const LeftSection = () => {
       }
     };
     return (
-      <div className={"mt-4 h-72 border overflow-scroll"}>
+      <div
+        className={
+          "mt-4 h-72 border border-gray-400 text-gray-300 rounded overflow-y-scroll"
+        }
+      >
         {proposals.map((p, index) => (
-          <div key={index} className="p-2 border">
+          <div key={index} className="p-2 border border-gray-800">
             <div className="flex justify-between">
               <span>Proposal ID: {p.proposalId}</span>
               <span>Deadline: {p.deadline.toLocaleString()}</span>
@@ -191,11 +195,14 @@ const LeftSection = () => {
             </div>
             <p>Executed?: {p.executed.toString()}</p>
             {p.deadline.getTime() > Date.now() && !p.executed ? (
-              <div className={""}>
+              <div className={"flex"}>
                 <Button onClick={() => voteOnProposal(p.proposalId, "YAY")}>
                   Vote YAY
                 </Button>
-                <Button onClick={() => voteOnProposal(p.proposalId, "NAY")}>
+                <Button
+                  className={"ml-8"}
+                  onClick={() => voteOnProposal(p.proposalId, "NAY")}
+                >
                   Vote NAY
                 </Button>
               </div>
@@ -216,9 +223,6 @@ const LeftSection = () => {
 
   return (
     <div className="w-full">
-      <h1 className="text-3xl md:text-5xl p-2 text-yellow-300 tracking-loose">
-        Crypto Devs
-      </h1>
       <h2 className="text-xl md:text-3xl leading-relaxed md:leading-snug mb-2">
         Welcome to the DAO!
       </h2>
