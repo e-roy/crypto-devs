@@ -7,7 +7,7 @@ export const CheckConnection = ({ children }) => {
   const [{ data: accountData }, disconnect] = useAccount({
     fetchEns: true,
   });
-
+  // console.log(accountData);
   const [{ data: networkData, error: switchNetworkError }, switchNetwork] =
     useNetwork();
 
