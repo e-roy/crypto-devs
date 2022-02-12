@@ -1,5 +1,3 @@
-// import { InputHTMLAttributes } from "react";
-
 export type TextFieldProps = {
   name?: string;
   label?: string;
@@ -40,6 +38,7 @@ export const TextField = ({
           required={required}
           autoComplete={autoComplete}
           placeholder={placeholder}
+          min="0"
           onChange={(e) => {
             onChange(e);
           }}

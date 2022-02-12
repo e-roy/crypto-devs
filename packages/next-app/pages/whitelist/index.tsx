@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useAccount, useContract, useSigner, useNetwork } from "wagmi";
 import { Hero } from "@/components/sections";
-import { Button } from "@/components/elements";
+import { Button, Loading } from "@/components/elements";
 import { CheckConnection } from "@/components/wallet";
 import image from "@/images/crypto-devs.svg";
 import config from "@/config.json";
@@ -14,6 +14,7 @@ export default function WhitelistPage() {
 }
 
 const LeftSection = () => {
+  const [loadingData, setLoadingData] = useState(true);
   const [joinLoading, setJoinLoading] = useState(false);
   const [joinedWhitelist, setJoinedWhitelist] = useState(false);
   const [numberOfWhitelisted, setNumberOfWhitelisted] = useState(0);
@@ -22,87 +23,67 @@ const LeftSection = () => {
     fetchEns: false,
   });
 
-  const [{ data, error, loading }, getSigner] = useSigner();
-  const [{ data: networkData, error: switchNetworkError }, switchNetwork] =
-    useNetwork();
+  const [{ data: signerData }] = useSigner();
+  const [{ data: networkData }] = useNetwork();
 
   const chainId = Number(config.network.id);
   const network = config.network.name;
 
   const Whitelist = contracts[chainId][network].contracts.Whitelist;
-  // console.log(Whitelist);
 
   const whitelistContract = useContract({
     addressOrName: Whitelist.address,
     contractInterface: Whitelist.abi,
-    signerOrProvider: data,
+    signerOrProvider: signerData,
   });
 
-  /**
-   * getNumberOfWhitelisted:  gets the number of whitelisted addresses
-   */
-  const getNumberOfWhitelisted = async () => {
+  const fetchData = async () => {
     try {
-      const _numberOfWhitelisted =
-        await whitelistContract.numAddressesWhitelisted();
-      setNumberOfWhitelisted(_numberOfWhitelisted);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  /**
-   * checkIfAddressInWhitelist: Checks if the address is in whitelist
-   */
-  const checkIfAddressInWhitelist = async () => {
-    try {
-      // call the whitelistedAddresses from the contract
       const _joinedWhitelist = await whitelistContract.whitelistedAddresses(
         accountData.address
       );
       setJoinedWhitelist(_joinedWhitelist);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  const checkMaxNumberOfWhitelisted = async () => {
-    try {
-      // call the whitelistedAddresses from the contract
       const _maxNumberOfWhitelisted =
         await whitelistContract.maxWhitelistedAddresses();
       setMaxNumberOfWhitelisted(_maxNumberOfWhitelisted);
+      const _numberOfWhitelisted =
+        await whitelistContract.numAddressesWhitelisted();
+      setNumberOfWhitelisted(_numberOfWhitelisted);
+      setLoadingData(false);
     } catch (err) {
       console.error(err);
     }
   };
 
   useEffect(() => {
-    if (data && networkData.chain.id === chainId) {
-      getNumberOfWhitelisted();
-      checkIfAddressInWhitelist();
-      checkMaxNumberOfWhitelisted();
+    if (signerData && networkData.chain.id === chainId) {
+      fetchData();
     }
-  }, [data]);
+  }, [signerData]);
 
   const addAddressToWhitelist = async () => {
     try {
-      const tx = await whitelistContract.addAddressToWhitelist();
       setJoinLoading(true);
+      const tx = await whitelistContract.addAddressToWhitelist();
       // wait for the transaction to get mined
       await tx.wait();
       setJoinLoading(false);
       // get the updated number of addresses in the whitelist
-      await getNumberOfWhitelisted();
+      await fetchData();
       setJoinedWhitelist(true);
     } catch (err) {
       console.error(err);
+      setJoinLoading(false);
     }
   };
 
   const handleJoin = async () => {
     addAddressToWhitelist();
   };
+
+  // if (loadingData) {
+  //   return <Loading />;
+  // }
   return (
     <div className="w-full">
       <h2 className="text-xl md:text-3xl leading-relaxed md:leading-snug mb-2">
@@ -115,11 +96,19 @@ const LeftSection = () => {
             the Whitelist
           </p>
           {!joinedWhitelist ? (
-            <Button disabled={joinLoading} onClick={() => handleJoin()}>
-              join
-            </Button>
+            <>
+              {joinLoading ? (
+                <Loading message="Confirm or Reject" />
+              ) : (
+                <Button disabled={joinLoading} onClick={handleJoin}>
+                  Join
+                </Button>
+              )}
+            </>
           ) : (
-            <div className="uppercase">You are on the whitelist</div>
+            <div className="uppercase text-xl text-yellow-300">
+              You are on the whitelist
+            </div>
           )}
         </div>
       </CheckConnection>

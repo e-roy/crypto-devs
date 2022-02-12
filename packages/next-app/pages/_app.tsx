@@ -41,8 +41,11 @@ type ProviderConfig = { chainId?: number; connector?: Connector };
 const isChainSupported = (chainId?: number) =>
   chains.some((x) => x.id === chainId);
 
-const provider = ({ chainId }: ProviderConfig) =>
-  providers.getDefaultProvider(
+const provider = ({ chainId }: ProviderConfig) => {
+  if (chainId == 31337) {
+    return new providers.JsonRpcProvider(chain.hardhat.rpcUrls[0]);
+  }
+  return providers.getDefaultProvider(
     isChainSupported(chainId) ? chainId : defaultChain.id,
     {
       // alchemy,
@@ -50,14 +53,14 @@ const provider = ({ chainId }: ProviderConfig) =>
       infuraId,
     }
   );
+};
+
 const webSocketProvider = ({ chainId }: ProviderConfig) =>
   isChainSupported(chainId)
     ? new providers.InfuraWebSocketProvider(chainId, infuraId)
     : undefined;
 
 const App = ({ Component, pageProps }: AppProps) => {
-  // console.log("chains", chains);
-  // console.log("chain", chain);
   return (
     <Provider
       autoConnect

@@ -1,29 +1,24 @@
 import Head from "next/head";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { utils } from "ethers";
-import { useAccount, useContract, useSigner, useProvider } from "wagmi";
+import { useState } from "react";
+import { useContract, useSigner } from "wagmi";
 import { Hero } from "@/components/sections";
-import { Button, TextField } from "@/components/elements";
+import { Button } from "@/components/elements";
 import { CheckConnection } from "@/components/wallet";
 import image from "@/images/eth-devs-2.svg";
 import config from "@/config.json";
 import contracts from "@/contracts/hardhat_contracts.json";
+
+import { LiquidityTokens, SwapTokens } from "@/components/exchange";
 
 export default function WhitelistPage() {
   return <Hero child1={<LeftSection />} child2={<RightSection />} />;
 }
 
 const LeftSection = () => {
-  const [tokenAmount, setTokenAmount] = useState("");
-
-  const [{ data: accountData }, disconnect] = useAccount({
-    fetchEns: false,
-  });
+  const [tab, setTab] = useState("liquidity");
 
   const [{ data: signerData, error, loading }, getSigner] = useSigner();
-
-  const provider = useProvider();
 
   const chainId = Number(config.network.id);
   const network = config.network.name;
@@ -35,11 +30,15 @@ const LeftSection = () => {
     contractInterface: Exchange.abi,
     signerOrProvider: signerData,
   });
-  console.log("ExchangeContract", ExchangeContract);
 
-  const handleJoin = async () => {
-    console.log("handleJoin");
-  };
+  const CryptoDevToken = contracts[chainId][network].contracts.CryptoDevToken;
+
+  const CryptoDevTokenContract = useContract({
+    addressOrName: CryptoDevToken.address,
+    contractInterface: CryptoDevToken.abi,
+    signerOrProvider: signerData,
+  });
+
   return (
     <div className="w-full">
       <h2 className="text-xl md:text-3xl leading-relaxed md:leading-snug mb-2">
@@ -48,40 +47,23 @@ const LeftSection = () => {
       <CheckConnection>
         <div>
           <div className="flex">
-            <Button onClick={() => handleJoin()}>Liquidity</Button>
-            <Button className="ml-4" onClick={() => handleJoin()}>
+            <Button onClick={() => setTab("liquidity")}>Liquidity</Button>
+            <Button className="ml-4" onClick={() => setTab("swap")}>
               Swap
             </Button>
           </div>
-          <p className="text-sm md:text-base text-gray-50">You have:</p>
-          <p className="text-sm md:text-base text-gray-50">
-            0 Crypto Dev Tokens
-          </p>
-          <p className="text-sm md:text-base text-gray-50">0 Ether</p>
-          <p className="text-sm md:text-base text-gray-50 mb-4">
-            0 Crypto Dev LP Tokens
-          </p>
-          <TextField
-            className="my-4"
-            placeholder="Amount of Ether"
-            type="number"
-            onChange={(e) => setTokenAmount(e.target.value)}
-          />
-          <p className="text-sm md:text-base text-gray-50">You will need 0</p>
-          <p className="text-sm md:text-base text-gray-50">Crypto Dev Tokens</p>
-          <div className="flex">
-            <Button onClick={() => handleJoin()}>add</Button>
-          </div>
-          <TextField
-            className="my-4"
-            placeholder="Amount of LP Tokens"
-            type="number"
-            onChange={(e) => setTokenAmount(e.target.value)}
-          />
-          <p className="text-sm md:text-base text-gray-50">You will get 0</p>
-          <p className="text-sm md:text-base text-gray-50">Crypto Dev Tokens</p>
-          <p className="text-sm md:text-base text-gray-50">and 0 ETH</p>
-          <Button onClick={() => handleJoin()}>remove</Button>
+          {tab === "liquidity" && (
+            <LiquidityTokens
+              ExchangeContract={ExchangeContract}
+              CryptoDevTokenContract={CryptoDevTokenContract}
+            />
+          )}
+          {tab === "swap" && (
+            <SwapTokens
+              ExchangeContract={ExchangeContract}
+              CryptoDevTokenContract={CryptoDevTokenContract}
+            />
+          )}
         </div>
       </CheckConnection>
     </div>
